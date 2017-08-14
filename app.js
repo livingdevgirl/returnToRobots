@@ -6,6 +6,8 @@ const app = express()
 let db = newdb;
 let url = 'mongodb://localhost:3000/robotsMongo';
 
+console.log(url)
+
 
 app.engine('handlebars', expressHandlebars());
 app.set('views', './views');
