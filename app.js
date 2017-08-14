@@ -3,7 +3,6 @@ const expressHandlebars = require('express-handlebars');
 const dataFile = require('./public/data');
 const bodyParser = require('body-parser')
 const app = express()
-let db = newdb;
 let url = 'mongodb://localhost:3000/robotsMongo';
 
 console.log(url)
@@ -19,7 +18,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'));
 
 
-let connection = null;
+let db = require('./db');;
+let connection = url;
 
 exports.connect = function(url, done) {
   if (connection) return done();
