@@ -1,4 +1,3 @@
-
 const MongoClient = require('mongodb').MongoClient;
 
 let connection = null;
@@ -14,6 +13,7 @@ exports.connect = function(url, done) {
 };
 
 exports.get = function() {
+  console.log(connection)
   return connection;
 };
 

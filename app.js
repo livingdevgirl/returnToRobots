@@ -3,7 +3,7 @@ const expressHandlebars = require('express-handlebars');
 const dataFile = require('./public/data');
 const bodyParser = require('body-parser')
 const app = express()
-const db = require('./db');
+let db = newdb;
 let url = 'mongodb://localhost:3000/robotsMongo';
 
 
@@ -15,6 +15,34 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static('public'));
+
+
+let connection = null;
+
+exports.connect = function(url, done) {
+  if (connection) return done();
+
+  MongoClient.connect(url, function(err, db) {
+    if (err) return done(err);
+    connection = db;
+    done();
+  });
+};
+
+exports.get = function() {
+  console.log(connection)
+  return connection;
+};
+
+exports.close = function(done) {
+  if (connection) {
+    connection.close(function(err, result) {
+      connection = null;
+      state.mode = null;
+      done(err);
+    });
+  }
+};
 
 app.get('/', function(req, res){
 //for loop if value key is null, target same place and assign it to string "availble for hire" console.log(dataFile)
